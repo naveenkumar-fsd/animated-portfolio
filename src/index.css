@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/*
+  DESIGN SYSTEM  (Tailwind CSS v4 — tokens live in @theme, no tailwind.config.js)
+  Change colours / fonts here and the whole site follows.
+*/
+@theme {
+  /* Typography */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Surfaces */
+  --color-ink: #07080c;
+  --color-surface: #0d0f16;
+  --color-raised: #141722;
+  --color-line: #1d2030;
+  --color-line-strong: #2d3249;
+
+  /* Text */
+  --color-fg: #eceef5;
+  --color-muted: #a1a7bb;
+  --color-faint: #7c8298;
+
+  /* Accents: violet is primary, cyan is the sparing secondary */
+  --color-accent: #9a8cff;
+  --color-accent-deep: #6f5df5;
+  --color-signal: #4fd8e6;
+  --color-ok: #4ade80;
+
+  /* Radii */
+  --radius-card: 1.25rem;
+  --radius-chip: 0.5rem;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-orbit: orbit 56s linear infinite;
+  --animate-orbit-reverse: orbit 84s linear infinite reverse;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-drift: drift 30s ease-in-out infinite alternate;
+  --animate-ping-dot: ping-dot 2.4s ease-out infinite;
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes drift {
+    from {
+      transform: translate3d(-4%, -2%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(4%, 3%, 0) scale(1.1);
+    }
+  }
+  @keyframes ping-dot {
+    0% {
+      box-shadow: 0 0 0 0 rgb(74 222 128 / 0.55);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 8px rgb(74 222 128 / 0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-width: 320px;
+    overflow-x: clip;
+  }
+
+  /* Ambient lighting behind the whole page (static: cheap to paint) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60rem 40rem at 88% -8%, rgb(124 108 255 / 0.16), transparent 62%),
+      radial-gradient(42rem 32rem at -12% 38%, rgb(79 216 230 / 0.07), transparent 62%);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 45%, transparent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Respect reduced-motion: stop CSS animations, transitions and smooth scrolling */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      animation-delay: 0s !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Page container: 1rem gutters on phones, centred 72rem column on large screens */
+  .container-page {
+    width: min(100% - 2rem, 72rem);
+    margin-inline: auto;
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      width: min(100% - 3rem, 72rem);
+    }
+  }
+
+  .section-pad {
+    padding-block: clamp(4.5rem, 10vw, 8rem);
+    scroll-margin-top: 4rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-signal);
+  }
+
+  .text-copy {
+    max-width: 62ch;
+    font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+  }
+
+  .text-gradient {
+    background: linear-gradient(100deg, #c9c1ff 0%, var(--color-accent) 40%, var(--color-signal) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Faint engineering-paper grid, fading out toward the edges */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 25%, transparent 78%);
+  }
+
+  .surface {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.01)), var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .hero-code-card {
+    border-color: rgb(196 190 255 / 0.2);
+    background: linear-gradient(145deg, rgb(24 27 42 / 0.96), rgb(11 13 21 / 0.94));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 24px 64px -24px rgb(0 0 0 / 0.9),
+      0 0 34px -20px rgb(124 108 255 / 0.65);
+  }
+}
