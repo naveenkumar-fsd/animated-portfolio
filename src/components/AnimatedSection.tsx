@@ -1,29 +1,59 @@
 import type { CSSProperties, ReactNode } from "react";
-import { motion } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+} from "motion/react";
 import { easeOutExpo } from "../lib/motion";
 
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
-  /** Seconds to wait before the reveal starts (use small values to stagger siblings) */
+  /** Small delay to stagger sibling animations */
   delay?: number;
 }
 
-/**
- * Fades its content up once, the first time it scrolls into view.
- * Only opacity and a small translate are animated, so nothing shifts the layout.
- * Reduced-motion visitors get the fade without the movement (see <MotionConfig> in main.tsx).
- */
-export default function AnimatedSection({ children, className, style, delay = 0 }: AnimatedSectionProps) {
+export default function AnimatedSection({
+  children,
+  className,
+  style,
+  delay = 0,
+}: AnimatedSectionProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
       style={style}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.8, ease: easeOutExpo, delay }}
+      initial={
+        reduceMotion
+          ? { opacity: 0 }
+          : {
+              opacity: 0,
+              y: 32,
+              scale: 0.985,
+              filter: "blur(5px)",
+            }
+      }
+      whileInView={
+        reduceMotion
+          ? { opacity: 1 }
+          : {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              filter: "blur(0px)",
+            }
+      }
+      viewport={{
+        once: true,
+        amount: 0.12,
+      }}
+      transition={{
+        duration: 0.85,
+        ease: easeOutExpo,
+        delay,
+      }}
     >
       {children}
     </motion.div>

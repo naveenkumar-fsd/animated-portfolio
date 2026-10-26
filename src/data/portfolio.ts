@@ -400,7 +400,7 @@ projects: [
   sections: {
     about: {
       eyebrow: "01 / About",
-      title: "A developer who likes the whole stack.",
+      title: "A Developer who likes the whole stack.",
     },
     skills: {
       eyebrow: "02 / Skills",
