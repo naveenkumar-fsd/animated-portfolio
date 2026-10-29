@@ -257,21 +257,6 @@ projects: [
     githubUrl: "https://github.com/naveenkumar-fsd/ALMI-FITNESS-PROJECT",
     liveUrl: "",
   },
-  {
-    id: "propulse-crm",
-    title: "Propulse — Real Estate CRM",
-    problem:
-      "Real estate teams need an organized way to manage property enquiries and customer relationships.",
-    description:
-      "A real estate CRM website focused on presenting property information and organizing customer enquiries and sales workflows through a modern interface.",
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
-    category: "Real Estate · CRM",
-    featured: false,
-    visual: "grid",
-    accent: "cyan",
-    githubUrl: "https://github.com/naveenkumar-fsd/pulse-property-pro",
-    liveUrl: "",
-  },
 
   {
   id: "chronos-3d-watch",
@@ -305,6 +290,21 @@ projects: [
 
   liveUrl: "https://chronos-3d-watch-experience.vercel.app/",
 },
+  {
+    id: "propulse-crm",
+    title: "Propulse — Real Estate CRM",
+    problem:
+      "Real estate teams need an organized way to manage property enquiries and customer relationships.",
+    description:
+      "A real estate CRM website focused on presenting property information and organizing customer enquiries and sales workflows through a modern interface.",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    category: "Real Estate · CRM",
+    featured: false,
+    visual: "grid",
+    accent: "cyan",
+    githubUrl: "https://github.com/naveenkumar-fsd/pulse-property-pro",
+    liveUrl: "",
+  },
 ],
 
 
