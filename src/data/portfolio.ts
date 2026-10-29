@@ -272,6 +272,39 @@ projects: [
     githubUrl: "https://github.com/naveenkumar-fsd/pulse-property-pro",
     liveUrl: "",
   },
+
+  {
+  id: "chronos-3d-watch",
+  title: "CHRONOS — 3D Watch Experience",
+
+  problem:
+    "Luxury watch brands need an engaging digital experience to showcase their products with interactive 3D visuals and animations.",
+
+  description:
+    "An immersive luxury watch website featuring an interactive 3D watch model, 360-degree rotation, scroll-triggered animations, and a premium black-and-gold interface.",
+
+  technologies: [
+    "React",
+    "TypeScript",
+    "Three.js",
+    "React Three Fiber",
+    "Drei",
+    "GSAP",
+    "CSS3",
+  ],
+
+  category: "Luxury · 3D Web Experience",
+
+  featured: true,
+
+  visual: "grid",
+
+  accent: "cyan",
+
+  githubUrl: "https://github.com/naveenkumar-fsd/chronos-3d-watch-experience",
+
+  liveUrl: "https://chronos-3d-watch-experience.vercel.app/",
+},
 ],
 
 
